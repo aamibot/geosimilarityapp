@@ -9,6 +9,7 @@ from feature_extractor import FeatureExtractor
 
 def load_image(img):
     """Load image and resize it"""
+
     im = Image.open(img)
     im = im.resize((448,448))
 
@@ -16,11 +17,13 @@ def load_image(img):
 
 def extract_feature():
     """Extract features from image database"""
+
     pass
 
 
 def load_feature():
     """Load extraced faetures for similarity check with uploaded image"""
+
     features = []
     img_paths = []
     for feature_path in glob.glob("static/feature/*"):
@@ -31,6 +34,7 @@ def load_feature():
 
 def check_image_similarity(extractor,features,img_paths,image_file):
     """Find similar images from image database"""
+
     img = Image.open(image_file)  
     query = extractor.extract(img)
     dists = np.linalg.norm(features - query, axis=1)  # Do search
@@ -75,7 +79,7 @@ def main():
             st.image(test_path)
 
     st.markdown("#### _Link to GitHub Repo_")
-    st.markdown("[Click here](https://www.google.com)")
+    st.markdown("[Click here](https://github.com/aamibot/geosimilarityapp)")
     
             
 if __name__ == "__main__":

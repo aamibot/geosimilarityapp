@@ -16,11 +16,13 @@ class FeatureExtractor:
         
         
     def extract(self, img):  
+        """Extract feature vector from the image"""
+        
         img = img.resize((224, 224))  
         img = img.convert('RGB')  
         x = image.img_to_array(img) 
-        x = np.expand_dims(x, axis=0)  # (H, W, C)->(1, H, W, C), where the first elem is the number of img
-        x = preprocess_input(x)  # Subtracting avg values for each pixel
-        feature = self.model.predict(x)[0]  # (1, 4096) -> (4096, )
+        x = np.expand_dims(x, axis=0)  # (H, W, C)->(1, H, W, C), where the first element is the number of images
+        x = preprocess_input(x)  # Subtracting avg: values for each pixel(Feature Centering)
+        feature = self.model.predict(x)[0]  # (1, 6) -> (6, )
 
-        return feature / np.linalg.norm(feature)  # Normalize
+        return feature / np.linalg.norm(feature)  # Normalize(Dividing feature vector by it's L2-norm)
