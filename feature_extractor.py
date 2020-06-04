@@ -7,11 +7,15 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.resnet50 import preprocess_input
 from tensorflow.keras.models import Model
 import numpy as np
+from pathlib import Path
+from configparser import ConfigParser
 
+config = ConfigParser()
+config.read('config.ini')
 
 class FeatureExtractor:
     def __init__(self):
-        base_model = load_model('/app/model/geo_similarity_model_relu.h5')
+        base_model = load_model(Path(config.get('paths','model_path')))
         self.model = Model(inputs=base_model.input, outputs=base_model.get_layer('dense').output)
         
         

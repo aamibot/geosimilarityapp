@@ -5,7 +5,10 @@ import os
 import numpy as np
 import pickle
 from feature_extractor import FeatureExtractor
+from pathlib import Path
+from configparser import ConfigParser
 
+config = ConfigParser()
 
 def load_image(img):
     """Load image and resize it"""
